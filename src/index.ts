@@ -42,6 +42,8 @@ app.use(express.json());
 
 app.use(errorHandler)
 
+app.use("api/v1", express.Router());
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     
