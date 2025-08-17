@@ -5,8 +5,6 @@ import { StatusCodes } from "http-status-codes";
 import { CustomRequest } from "../middlewares/auth.middleware";
 
 
-
-
 export class UserController {
     private userService: UserServiceImpl;
 
