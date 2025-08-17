@@ -1,7 +1,7 @@
 import { IsNotEmpty, Length, IsEmail, IsOptional, IsEnum } from 'class-validator';
 import { USER_ROLE } from '../generated/prisma';
 
-export class createUserDTO{
+export class CreateUserDTO{
     @IsNotEmpty()
     @Length(2, 50)
     firstName!: string;
