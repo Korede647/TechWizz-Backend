@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import session from "express-session";
 import cors from "cors";
 import { errorHandler } from "./utils/errorHandler.util";
+import userRouter from "./routes/user.route";
 
 dotenv.config();
 
@@ -42,7 +43,7 @@ app.use(express.json());
 
 app.use(errorHandler)
 
-app.use("api/v1", express.Router());
+app.use("api/user", userRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
