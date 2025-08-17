@@ -1,4 +1,13 @@
 {
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "nodemon src/index.ts"
+  },
+  "name": "techwizz-backend",
+  "version": "1.0.0",
+  "description": "Backend for TechWizz",
+  "main": "dist/index.js",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.3",
