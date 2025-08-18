@@ -1,11 +1,11 @@
 
 import { comparePassword, hashPassword } from "../../utils/password.util";
 import { AuthService } from "../auth.service";
-import Jwt  from "jsonwebtoken"
+import Jwt, { Secret, SignOptions }  from "jsonwebtoken"
 import { db } from "../../config/db";
 import { CustomError } from "../../exceptions/customError.error";
 import { StatusCodes } from "http-status-codes";
-import { User } from "@prisma/client";
+import { User, USER_ROLE } from "@prisma/client";
 import { VerifyEmailDTO } from "../../dtos/verifyEmail.dto";
 import { LoginDTO } from "../../dtos/LoginDTO";
 import { CreateUserDTO } from "../../dtos/createUserDTO";
@@ -155,17 +155,34 @@ export class AuthServiceImpl implements AuthService{
       }
 
 
-       generateAccessToken(userId: string, name: string, role:string): string {
-            return Jwt.sign({id: userId, name, role}, process.env.JWT_SECRET || "", {
-                expiresIn: process.env.JWT_ACCESS_EXPIRES, 
-            });
-        }
+      generateAccessToken = (userId: string, name: string, role: USER_ROLE): string => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not defined");
+  }
 
-        generateRefreshToken(userId: string, name: string, role: string): string{
-            return Jwt.sign({id: userId, name, role}, process.env.JWT_SECRET || "", {
-                expiresIn: process.env.JWT_REFRESH_EXPIRES
-            })
-        }
+  const secret: Secret = process.env.JWT_SECRET;
+
+  return Jwt.sign(
+    { id: userId, name, role },
+    secret,
+    { expiresIn: process.env.JWT_ACCESS_EXPIRES } as SignOptions
+  );
+};
+
+     generateRefreshToken = (userId: string, name: string, role: USER_ROLE): string => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not defined");
+  }
+
+  const secret: Secret = process.env.JWT_SECRET;
+
+  return Jwt.sign(
+    { id: userId, name, role },
+    secret,
+    { expiresIn: process.env.JWT_REFRESH_EXPIRES } as SignOptions
+  );
+};
+
 
         generateOtpExpiration(){
             return new Date(Date.now() + 10 * 60 * 1000)
