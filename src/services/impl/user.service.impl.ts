@@ -1,11 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import { CreateUserDTO } from "../../dtos/createUserDTO";
 import { CustomError } from "../../exceptions/customError.error";
-import { User } from "../../generated/prisma";
 import { db } from "../../config/db";
 import { hashPassword } from "../../utils/password.util";
 import redisClient from "../../redisClient";
 import { UserService } from "../user.service";
+import { User } from "@prisma/client";
 
 
 export class UserServiceImpl implements UserService {

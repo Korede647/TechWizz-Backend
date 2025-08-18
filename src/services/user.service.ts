@@ -2,7 +2,7 @@
 // import { ChangePasswordDTO } from '../dto/resetPassword.dto';
 
 import { CreateUserDTO } from "../dtos/createUserDTO";
-import { User } from "../generated/prisma";
+import { User } from "@prisma/client";
 
 export interface UserService {
     createUser(data: CreateUserDTO): Promise<User>;
