@@ -4,6 +4,7 @@ import session from "express-session";
 import cors from "cors";
 import { errorHandler } from "./utils/errorHandler.util";
 import userRouter from "./routes/user.route";
+import authRoutes from "./routes/auth.route";
 
 dotenv.config();
 
@@ -43,7 +44,8 @@ app.use(express.json());
 
 app.use(errorHandler)
 
-app.use("api/user", userRouter);
+app.use("/api/user", userRouter);
+app.use("/api/auth", authRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
