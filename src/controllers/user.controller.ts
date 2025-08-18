@@ -32,7 +32,7 @@ export class UserController {
         next: NextFunction
     ): Promise<void | any> => {
         try{
-            const userId = parseInt(req.params.id);
+            const userId = req.params.id;
             const user = await this.userService.getUserById(userId)
             if(!user){
                 return res.status(404).json({message: "User not found"})
@@ -62,7 +62,7 @@ export class UserController {
         next: NextFunction
     ): Promise<void> => {
         try{
-            const userId = parseInt(req.params.id);
+            const userId = req.params.id;
             const userData = req.body as Partial<CreateUserDTO>
             const updateUser = await this.userService.updateUser(userId, userData)
             res.status(200).json(updateUser)
@@ -77,7 +77,7 @@ export class UserController {
         next: NextFunction
     ): Promise<void> => {
         try{
-            const userId = parseInt(req.params.id);
+            const userId = req.params.id;
             const user = await this.userService.deleteUser(userId)
             res.status(200).json(user)
         }catch(error){
@@ -91,8 +91,8 @@ export class UserController {
         next:NextFunction
     ): Promise<void | any> => {
         try{
-            const id = req.userAuth;
-            const user = await this.userService.getUserById(Number(id))
+            const id = req.params.id 
+            const user = await this.userService.getUserById(id)
 
             res.status(StatusCodes.OK).json({
                 error: false,

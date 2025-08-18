@@ -35,7 +35,7 @@ export class UserServiceImpl implements UserService {
         return user;
     }
 
-    async getUserById(id: number): Promise<User | null> {
+    async getUserById(id: string): Promise<User | null> {
       const cacheKey = `user:${id}`
 
     try{
@@ -73,7 +73,7 @@ export class UserServiceImpl implements UserService {
     return users
     }
 
-    async updateUser(id: number, data: Partial<CreateUserDTO>): Promise<User> {
+    async updateUser(id: string, data: Partial<CreateUserDTO>): Promise<User> {
           const isUserExist = await db.user.findFirst({
       where: {
         id, //id: id
@@ -89,7 +89,7 @@ export class UserServiceImpl implements UserService {
     return user;
     }
 
-    async deleteUser(id: number): Promise<void> {
+    async deleteUser(id: string): Promise<void> {
          const user = await db.user.findFirst({
       where: { id },
     });
@@ -101,7 +101,7 @@ export class UserServiceImpl implements UserService {
     });
     }
 
-    async profile(id: number): Promise<Omit<User, "password"> > {
+    async profile(id: string): Promise<Omit<User, "password"> > {
           const cacheKey = `user: ${id}`
 
     const cachedUser = await redisClient.get(cacheKey)
@@ -128,7 +128,7 @@ export class UserServiceImpl implements UserService {
 
 
     async uploadProfilePic(
-    id: number,
+    id: string,
     data: { profilePic: string }
   ): Promise<Object | any> {
 //     const user = await db.user.findFirst({
